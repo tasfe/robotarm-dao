@@ -8,16 +8,12 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -114,45 +110,6 @@ public class BeanUtils {
 	}
 
 	/**
-	 * json转成beans
-	 * 
-	 * @param <T>
-	 * @param json
-	 * @param clazz
-	 * @return bean colleciton
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T> Collection<T> toBeans(String json, Class<T> clazz) {
-		if (StringUtils.isBlank(json) || clazz == null) {
-			return Collections.emptyList();
-		}
-
-		JSONArray ja = JSONArray.fromObject(json);
-		Collection<T> beans = JSONArray.toCollection(ja, clazz);
-
-		return beans;
-	}
-
-	/**
-	 * json转成bean
-	 * 
-	 * @param <T>
-	 * @param json
-	 * @param clazz
-	 * @return bean
-	 */
-	public static <T> T toBean(String json, Class<T> clazz) {
-		if (StringUtils.isBlank(json) || clazz == null) {
-			return null;
-		}
-
-		JSONObject jo = JSONObject.fromObject(json);
-		Object obj = JSONObject.toBean(jo, clazz);
-
-		return clazz.cast(obj);
-	}
-
-	/**
 	 * 下划线命名转驼峰
 	 */
 	public static String underlineToHump(String name) {
@@ -214,29 +171,29 @@ public class BeanUtils {
 
 		return sb.toString();
 	}
-	
-	  public static Class<?>[] getActualClass(Type genericType) {
 
-	        if (genericType instanceof ParameterizedType) {
+	public static Class<?>[] getActualClass(Type genericType) {
 
-	            Type[] actualTypes = ((ParameterizedType) genericType).getActualTypeArguments();
-	            Class<?>[] actualClasses = new Class<?>[actualTypes.length];
+		if (genericType instanceof ParameterizedType) {
 
-	            for (int i = 0; i < actualTypes.length; i++) {
-	                Type actualType = actualTypes[i];
-	                if (actualType instanceof Class<?>) {
-	                    actualClasses[i] = (Class<?>) actualType;
-	                } else if (actualType instanceof GenericArrayType) {
-	                    Type componentType = ((GenericArrayType) actualType).getGenericComponentType();
-	                    actualClasses[i] = Array.newInstance((Class<?>) componentType, 0).getClass();
-	                }
-	            }
+			Type[] actualTypes = ((ParameterizedType) genericType).getActualTypeArguments();
+			Class<?>[] actualClasses = new Class<?>[actualTypes.length];
 
-	            return actualClasses;
-	        }
+			for (int i = 0; i < actualTypes.length; i++) {
+				Type actualType = actualTypes[i];
+				if (actualType instanceof Class<?>) {
+					actualClasses[i] = (Class<?>) actualType;
+				} else if (actualType instanceof GenericArrayType) {
+					Type componentType = ((GenericArrayType) actualType).getGenericComponentType();
+					actualClasses[i] = Array.newInstance((Class<?>) componentType, 0).getClass();
+				}
+			}
 
-	        return EMPTY_CLASSES;
-	    }
+			return actualClasses;
+		}
+
+		return EMPTY_CLASSES;
+	}
 
 	// ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -301,52 +258,5 @@ public class BeanUtils {
 			return id + "|" + name + "|" + desc + "|" + test1 + "|" + test2 + "|" + test3;
 		}
 	}
-	
-	
-
-	// 测试
-	public static void main(String[] args) {
-		// //////////测试map//////////
-		// 从db读取出来的数据
-		List<Map<Object, Object>> list = new ArrayList<Map<Object, Object>>();
-
-		Map<Object, Object> map = new HashMap<Object, Object>(5);
-		map.put("id", 1234);
-		map.put("name", "我是中国人");
-		map.put("desc", "我在中国北京");
-		map.put("test1", 899l);
-		map.put("test2", true);
-		map.put("test3", Arrays.asList("123", "456"));
-		list.add(map);
-		map = new HashMap<Object, Object>(5);
-		map.put("id", 12345);
-		map.put("name", "我是中国人2");
-		map.put("desc", "我在中国北京2");
-		map.put("test1", 8992l);
-		map.put("test2", false);
-		map.put("test3", Arrays.asList("abcdef", "def"));
-		list.add(map);
-
-		long t = System.currentTimeMillis();
-		Collection<TestBean> col = BeanUtils.toBeans(list, TestBean.class);// map转beans
-		System.out.println("执行时间：" + (System.currentTimeMillis() - t));
-		System.out.println("数量：" + col.size());
-		System.out.println(JSONArray.fromObject(list));
-		System.out.println("####" + col.iterator().next().getTest3());
-
-		// //////////测试json//////////
-		String json = "[{\"id\":1234,\"test1\":899,\"desc\":\"我在中国北京\",\"test3\":[\"abcdef\",\"def\"],\"test2\":true,\"name\":\"我是中国人\"},{\"id\":12345,\"test1\":8992,\"desc\":\"我在中国北京2\",\"test2\":false,\"name\":\"我是中国人2\",\"test3\":[\"12345\",\"88776666\"]}]";
-		String json2 = "{\"id\":1234,\"test1\":899,\"desc\":\"老家在东北\",\"test2\":true,\"name\":\"我是中国人\"}";
-		Collection<TestBean> beans = BeanUtils.toBeans(json, TestBean.class);// json转beans
-		TestBean bean = BeanUtils.toBean(json2, TestBean.class);// json转bean
-		System.out.println("@@@@@@@@@@@json转beans:  " + beans.iterator().next().getTest3());
-		System.out.println("@@@@@@@@@@@json转bean:  " + bean.getDesc());
-	}
-
-	// public static void main(String[] args) throws InstantiationException,
-	// IllegalAccessException {
-	// Object bean = TestBean.class.newInstance();
-	// System.out.println(bean);
-	// }
 
 }

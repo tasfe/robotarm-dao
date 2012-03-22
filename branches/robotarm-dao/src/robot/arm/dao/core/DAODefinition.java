@@ -12,6 +12,7 @@ public class DAODefinition {
 	}
 
 	public Class<?> getClazz() {
+		
 		return clazz;
 	}
 	

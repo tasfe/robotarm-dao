@@ -23,6 +23,7 @@ import org.apache.log4j.Logger;
  * 
  * @author li.li
  * 
+ * 
  */
 public class JdbcImpl implements Jdbc {
 	private static final Logger log = Logger.getLogger(JdbcImpl.class);

@@ -18,6 +18,7 @@ import org.junit.Test;
 public class SmokeTest {
 	@Rule
 	public ContiPerfRule i = new ContiPerfRule();
+	public String s;
 
 	/**
 	 * 参数地址:http://databene.org/contiperf<br/>
@@ -30,11 +31,14 @@ public class SmokeTest {
 	 * 
 	 */
 	@Test
-	@PerfTest(invocations = 1000, threads = 20)
+	@PerfTest(invocations = 1000, threads = 30)
 	@Required(max = 1200, average = 250)
 	public void test1() throws Exception {
 		Thread.sleep(200);
 	}
 	
 	
+	public void add(){
+		return;
+	}
 }

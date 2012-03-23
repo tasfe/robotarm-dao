@@ -35,4 +35,9 @@ public class SmokeTest {
 	public void test1() throws Exception {
 		Thread.sleep(200);
 	}
+	
+	
+	public void add(){
+		return;
+	}
 }

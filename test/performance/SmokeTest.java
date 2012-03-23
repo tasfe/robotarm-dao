@@ -19,6 +19,7 @@ public class SmokeTest {
 	@Rule
 	public ContiPerfRule i = new ContiPerfRule();
 	public String s;
+	public String d;
 
 	/**
 	 * 参数地址:http://databene.org/contiperf<br/>
@@ -39,6 +40,8 @@ public class SmokeTest {
 	
 	
 	public void add(){
+		String t="asdfasdf";
+		String dfd=null;
 		return;
 	}
 }

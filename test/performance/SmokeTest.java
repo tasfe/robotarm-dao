@@ -36,7 +36,7 @@ public class SmokeTest {
 		Thread.sleep(200);
 	}
 	
-	private void test(){
+	private void test2(){
 		
 	}
 }

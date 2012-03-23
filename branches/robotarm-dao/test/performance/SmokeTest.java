@@ -31,7 +31,7 @@ public class SmokeTest {
 	 * 
 	 */
 	@Test
-	@PerfTest(invocations = 1000, threads = 20)
+	@PerfTest(invocations = 1000, threads = 30)
 	@Required(max = 1200, average = 250)
 	public void test1() throws Exception {
 		Thread.sleep(200);

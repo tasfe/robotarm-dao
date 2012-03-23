@@ -27,7 +27,7 @@ public class SmokeTest {
 	 * milliseconds are tolerated.
 	 */
 	@Test
-	@PerfTest(invocations = 1000, threads = 20)
+	@PerfTest(invocations = 1000, threads = 21)
 	@Required(max = 1200, average = 250)
 	public void test1() throws Exception {
 		Thread.sleep(200);

@@ -18,6 +18,7 @@ import org.junit.Test;
 public class SmokeTest {
 	@Rule
 	public ContiPerfRule i = new ContiPerfRule();
+	public String s;
 
 	/**
 	 * 参数地址:http://databene.org/contiperf<br/>

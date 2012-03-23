@@ -25,6 +25,9 @@ public class SmokeTest {
 	 * concurrent threads, so each thread does 50 invocations. A maximum
 	 * execution time of 1.2 seconds and and an average below or equals 250
 	 * milliseconds are tolerated.
+	 * 
+	 * 
+	 * 
 	 */
 	@Test
 	@PerfTest(invocations = 1000, threads = 20)

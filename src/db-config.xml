@@ -2,28 +2,51 @@
 <!-- robotarm DAO framework -->
 <!-- 数据源配置 -->
 <db-config>
-<catalog name="c1">
-	<db type="master">
-		<driver>org.gjt.mm.mysql.Driver</driver>
-		<url>jdbc:mysql://localhost:3307/test?useUnicode=true&amp;characterEncoding=gbk</url>
-		<user>root</user>
-		<password></password>
-		<ispooled>true</ispooled>
-		<minconns>20</minconns>
-		<initconns>30</initconns>
-		<maxconns>50</maxconns>
-		<maxidletime>20</maxidletime>
-	</db>
-	<db type="slave">
-		<driver>org.gjt.mm.mysql.Driver</driver>
-		<url>jdbc:mysql://localhost:3307/test?useUnicode=true&amp;characterEncoding=gbk</url>
-		<user>root</user>
-		<password></password>
-		<ispooled>true</ispooled>
-		<minconns>20</minconns>
-		<initconns>30</initconns>
-		<maxconns>50</maxconns>
-		<maxidletime>20</maxidletime>
-	</db>
-</catalog>
+	<catalog name="c1">
+		<db type="master">
+			<driver>org.gjt.mm.mysql.Driver</driver>
+			<url>jdbc:mysql://localhost:3307/test?useUnicode=true&amp;characterEncoding=gbk</url>
+			<user>root</user>
+			<password></password>
+			<ispooled>true</ispooled>
+			<minconns>20</minconns>
+			<initconns>30</initconns>
+			<maxconns>50</maxconns>
+			<maxidletime>20</maxidletime>
+		</db>
+
+		<db type="slave">
+			<driver>org.gjt.mm.mysql.Driver</driver>
+			<url>jdbc:mysql://localhost:3307/test?useUnicode=true&amp;characterEncoding=gbk</url>
+			<user>root</user>
+			<password></password>
+			<ispooled>true</ispooled>
+			<minconns>20</minconns>
+			<initconns>30</initconns>
+			<maxconns>50</maxconns>
+			<maxidletime>20</maxidletime>
+		</db>
+		
+			
+		<!-- 散库散表配置 -->
+		<table name="mail">
+			<!-- 根据id散3张表，3张表分别在3个库里 -->
+			<db-partitions>
+				<hash>
+					<by-column>id</by-column>
+					<partitions>3</partitions>
+					<target-pattern>mail_{0}</target-pattern>
+				</hash>
+			</db-partitions>
+			<table-partitions>
+				<hash>
+					<by-column>id</by-column>
+					<partitions>3</partitions>
+					<target-pattern>mail_{0}</target-pattern>
+				</hash>
+			</table-partitions>
+		</table>
+
+
+	</catalog>
 </db-config>

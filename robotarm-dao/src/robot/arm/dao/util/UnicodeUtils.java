@@ -13,7 +13,7 @@ package robot.arm.dao.util;
  */
 public class UnicodeUtils {
 
-	public static String legal(String str) {
+	public static String filter(String str) {
 
 		StringBuilder sb = new StringBuilder(str.length());
 		for (char c : str.toCharArray()) {
@@ -44,6 +44,6 @@ public class UnicodeUtils {
 		// LOW_SURROGATES: 0xDC00 through 0xDFFF
 		String s1 = "我𦵑𦵑𦵑们是在𦵑这晨啊𦵑asdfasdf1231𦵑23";
 
-		System.out.println(legal(s1));
+		System.out.println(filter(s1));
 	}
 }

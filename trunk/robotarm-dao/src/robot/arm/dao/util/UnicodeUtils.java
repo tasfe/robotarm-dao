@@ -44,7 +44,7 @@ public class UnicodeUtils {
 	}
 
 	public static void main(String[] args) {
-		String s = "𦵑";// HIGH_SURROGATES:0xD800 through 0xDB7F,
+		// HIGH_SURROGATES:0xD800 through 0xDB7F,
 		// LOW_SURROGATES: 0xDC00 through 0xDFFF
 		String s1 = "我𦵑𦵑𦵑们是在𦵑这晨啊𦵑asdfasdQW%#￥！@#￥%……&*（）——+|~￥……%&*&%DFDDSf1231𦵑23";
 
